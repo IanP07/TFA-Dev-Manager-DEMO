@@ -1,0 +1,23 @@
+{% load static %}
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'myapp/stylesheet.css' %}">
+</head>
+<body>
+    <h1 id="login_text">Please enter the password</h1>
+    <div id="login_screen">
+        {% if error %}
+            <p style="color:red;">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <input class="login_input" type="password" name="password" required>
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

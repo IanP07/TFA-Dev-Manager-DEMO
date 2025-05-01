@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Device</title>
+    <link rel="stylesheet" href="{% static 'myapp/stylesheet.css' %}">
+</head>
+<body>
+    <h1 id="title_text">Add New Device</h1>
+    <div id="device_list">
+        
+        
+        <form method="POST">  <!-- Field for adding new devices. Set method to POST so it sends it to django views.py-->
+            {% csrf_token %}  
+            <label for="device_name">Device Name:</label>
+            <input class="input2" type="text" name="device_name" required><br>
+
+            <label for="device_brand">Device Brand:</label>
+            <input type="text" name="device_brand" required><br>
+
+            <label for="device_type">Device Type:</label>
+            <select name="device_type">
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop</option>
+                <option value="projector">Projector</option>
+                <option value="TV">TV</option>
+                <option value="other">Other</option>
+            </select><br>
+
+
+            <label for="device_os">Device OS:</label>
+            <select name="device_os">
+                <option value="windows10">Win10</option>
+                <option value="windows11">Win11</option>
+                <option value="chromeos">ChromeOS</option>
+                <option value="linux">Linux</option>
+                <option value="macos">MacOS</option>
+                <option value="other">Other</option>
+
+            </select>
+
+            <button class="button" type="submit">Add Device</button>
+        </form>
+    </div>
+
+</body>
+</html>

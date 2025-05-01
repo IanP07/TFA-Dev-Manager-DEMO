@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Device</title>
+    <link rel="stylesheet" href="{% static 'myapp/stylesheet.css' %}">
+
+</head>
+<body>
+    <h1 id="title_text">Update Device</h1>
+    <div id="device_list">
+        <form method="POST">  <!--Autofills field with previous device names and dropdowns-->
+            {% csrf_token %}
+
+        <label for="device_name">Device Name:</label>
+        <input class="input2" type="text" name="device_name" value="{{ device.device_name }}" required><br>
+
+        <label for="device_brand">Device Brand:</label>
+        <input class="input2" type="text" name="device_brand" value="{{ device.device_brand }}" required><br>
+
+        <label for="device_type">Device Type:</label>
+        <select name="device_type" required>
+            <option value="laptop" {% if device.device_type == 'laptop' %}selected{% endif %}>Laptop</option>
+            <option value="desktop" {% if device.device_type == 'desktop' %}selected{% endif %}>Desktop</option>
+            <option value="projector" {% if device.device_type == 'projector' %}selected{% endif %}>Projector</option>
+            <option value="TV" {% if device.device_type == 'TV' %}selected{% endif %}>TV</option>
+            <option value="other" {% if device.device_type == 'other' %}selected{% endif %}>Other</option>
+        </select><br>
+        
+        <label for="device_os">Device OS:</label>
+        <select name="device_os" required>
+            <option value="windows10" {% if device.device_os == 'windows10' %}selected{% endif %}>Windows 10</option>
+            <option value="windows11" {% if device.device_os == 'windows11' %}selected{% endif %}>Windows 11</option>
+            <option value="ChromeOS" {% if device.device_os == 'ChromeOS' %}selected{% endif %}>ChromeOS</option>
+            <option value="Linux" {% if device.device_os == 'Linux' %}selected{% endif %}>Linux</option>
+            <option value="macOS" {% if device.device_os == 'macOS' %}selected{% endif %}>macOS</option>
+            <option value="other" {% if device.device_os == 'other' %}selected{% endif %}>Other</option>
+        </select><br>
+
+        <button class="button" type="submit">Update Device</button>
+        </form>
+    </div>
+</body>
+</html>

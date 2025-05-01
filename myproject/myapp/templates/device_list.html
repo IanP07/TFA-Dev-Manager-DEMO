@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TFA Device Manager</title>
+  <link rel="stylesheet" href="{% static 'myapp/stylesheet.css' %}">
+</head>
+<body>
+<div id="title_text">
+  <h1>TFA Device Manager</h1>
+</div>
+  <!-- Search Form/bar -->
+<div id="search_bar">
+  <form method="GET" action="">
+    <input class="input" type="text" name="search" placeholder="Search by name" value="{{ request.GET.search }}">
+    
+    <div class="button-container">
+      <button class="button" type="submit">Search</button>
+      <a href="{% url 'add_device' %}" class="button">Add New Device</a>
+    </div>
+  </form>
+</div>
+
+  <!-- List of Devices -->
+<div id="device_list">
+      <table>
+        <thead>
+          <tr>
+            <th><h2>Name</h2></th>
+            <th><h2>Brand</h2></th>
+            <th><h2>Type</h2></th>
+            <th><h2>OS</h2></th>
+          </tr>
+        </thead>
+          {% for device in device %}
+            <tr>
+              <td>{{ device.device_name }}</td>
+              <td>{{ device.device_brand }}</td>
+              <td>{{ device.device_type }}</td>
+              <td>{{ device.device_os }}</td>
+ 
+              <td>
+                <a href="{% url 'update_device' device.id %}" class="button">Edit</a>
+                <a href="{% url 'delete_device' device.id %}" class="button">Delete</a>
+              </td> 
+            </tr>
+          {% empty %}
+            <td colspan="5">No Devices Added.</td>
+          {% endfor %} 
+      </table> 
+</div>
+          
+
+
+
+  
+
+
+</body>
+</html>
