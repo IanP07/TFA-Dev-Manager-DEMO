@@ -20,5 +20,6 @@ brands = (
 class Devices(models.Model):
     device_name = models.CharField(max_length=300)
     device_brand = models.CharField(max_length=300)
+    room = models.CharField(max_length=300, default=000)
     device_type = models.CharField(max_length=100, choices=brands)
     device_os = models.CharField(max_length=300, choices=os_options)

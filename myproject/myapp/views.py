@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse    
 from django.template import loader
 from .models import Devices
+from django.db.models import Q
 
 
 def login_view(request):
@@ -19,12 +20,20 @@ def login_view(request):
 def devices(request):    
     if not request.session.get('authenticated'): # If user isnt logged in
         return redirect('/')
-    
     queryset = Devices.objects.all()    
-    if request.GET.get('search'):
-        queryset = queryset.filter(
-            device_name__icontains=request.GET.get('search')) # If db contains (case insensitive) the request
 
+    search_query = request.GET.get('search')
+
+    if search_query:
+        queryset = queryset.filter(
+            Q(device_name__icontains=search_query) |
+            Q(device_brand__icontains=search_query) |
+            Q(room__icontains=search_query) |
+            Q(device_type__icontains=search_query) |
+            Q(device_os__icontains=search_query)
+        )
+
+   
     context = {'device': queryset} # Returns device saved under 'queryset' if it has been searched
     return render(request, 'device_list.html', context)
 
@@ -34,12 +43,14 @@ def add_device(request):
 
         device_name = data.get('device_name')
         device_brand = data.get('device_brand')
+        room = data.get('room')
         device_type = data.get('device_type')
         device_os = data.get('device_os')
 
         Devices.objects.create( # Adds new device to Devices model, which is displayed in the def devices function. 
             device_name = device_name,
             device_brand = device_brand,
+            room = room,
             device_type = device_type,
             device_os = device_os
         )
@@ -60,11 +71,13 @@ def update_device(request, id):
 
         device_name = data.get('device_name')
         device_brand = data.get('device_brand')
+        room = data.get('room')
         device_type = data.get('device_type')
         device_os = data.get('device_os')
 
         queryset.device_name = device_name
         queryset.device_brand = device_brand
+        queryset.room = room
         queryset.device_type = device_type
         queryset.device_os = device_os
 
