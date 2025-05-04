@@ -61,6 +61,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://tfadevmanager.up.railway.app',
+    'http://tfadevmanager.up.railway.app',  # If your app uses HTTP as well
+]
+
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
