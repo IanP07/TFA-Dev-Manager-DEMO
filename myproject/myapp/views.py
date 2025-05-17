@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Devices
 from django.db.models import Q
+import csv
 
 
 def login_view(request):
@@ -22,7 +23,7 @@ def devices(request):
         return redirect('/')
     queryset = Devices.objects.all()    
 
-    search_query = request.GET.get('search')
+    search_query = request.GET.get('search') 
 
     if search_query:
         queryset = queryset.filter(
@@ -36,6 +37,31 @@ def devices(request):
    
     context = {'device': queryset} # Returns device saved under 'queryset' if it has been searched
     return render(request, 'device_list.html', context)
+
+
+def export_devices_csv(request):
+    if not request.session.get('authenticated'): # If user isnt logged in
+        return redirect('/')
+
+    
+    queryset = Devices.objects.all()
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="devices.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Device Name', 'Brand', 'Room', 'Type', 'OS'])
+
+    for device in queryset: # Writes to CSV 
+        writer.writerow([
+            device.device_name,
+            device.device_brand,
+            device.room,
+            device.device_type,
+            device.device_os
+        ])
+
+    return response
 
 def add_device(request):
     if request.method == 'POST':

@@ -29,6 +29,11 @@ td {
     margin-top: 70px;
 }
 
+#csv {
+  display: flex;
+  justify-content: center;
+}
+
 #login_text {
   font-family: monospace;
   font-size: x-large;

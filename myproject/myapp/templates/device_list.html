@@ -11,8 +11,16 @@
 <div id="title_text">
   <h1>TFA Device Manager</h1>
 </div>
+
+<div id="csv">
+  <form method="get" action="{% url 'export_devices_csv' %}">
+    <input type="hidden" name="search" value="{{ request.GET.search }}">
+    <button type="submit" class="button">Export CSV</button>
+  </form>
+</div>
   <!-- Search Form/bar -->
 <div id="search_bar">
+  
   <form method="GET" action="">
     <input class="input" type="text" name="search" placeholder="Search by name" value="{{ request.GET.search }}">
     
@@ -23,8 +31,12 @@
   </form>
 </div>
 
+
+
+
   <!-- List of Devices -->
 <div id="device_list">
+  
       <table>
         <thead>
           <tr>
@@ -53,12 +65,5 @@
           {% endfor %} 
       </table> 
 </div>
-          
-
-
-
-  
-
-
 </body>
 </html>
