@@ -8,16 +8,11 @@
     <link rel="stylesheet" href="{% static 'myapp/stylesheet.css' %}">
 </head>
 <body>
-    <h1 id="login_text">Please enter the password</h1>
+    <h1 id="login_text">Continue to Main Page</h1>
     <div id="login_screen">
-        {% if error %}
-            <p style="color:red;">{{ error }}</p>
-        {% endif %}
-        <form method="POST">
-            {% csrf_token %}
-            <input class="login_input" type="password" name="password" required>
-            <button class="button" type="submit">Login</button>
-        </form>
+        
+    <button class="button" onclick="location.href='{% url 'device_list' %}'">Login</button>
+    
     </div>
 </body>
 </html>

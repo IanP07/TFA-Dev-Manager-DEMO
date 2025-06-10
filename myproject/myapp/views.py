@@ -7,13 +7,11 @@ import csv
 
 
 def login_view(request):
+    request.session["authenticated"] = True
     if request.method == "POST":
         password = request.POST.get("password")
-        if password == "1776":
-            request.session["authenticated"] = True
+        if password:
             return redirect('/device_list/')
-        else:
-            return render(request, "login.html")
     return render(request, "login.html")
 
 
