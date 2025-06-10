@@ -63,8 +63,7 @@ MIDDLEWARE = [
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://tfadevmanager.up.railway.app',
-    'http://tfadevmanager.up.railway.app',  # If your app uses HTTP as well
+    'https://dev-manager-demo.up.railway.app'
 ]
 
 ROOT_URLCONF = 'myproject.urls'
